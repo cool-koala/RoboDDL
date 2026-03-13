@@ -32,8 +32,10 @@ function ConferenceCard({ venue, isFavorite, onToggleFavorite }: ConferenceCardP
           </div>
           {!isExpanded && venue.submissionModel === 'deadline' ? (
             <div className="summary-deadline">
-              {venue.isEstimated ? <span className="summary-deadline-badge">Est.</span> : null}
-              <span className="summary-deadline-label">{deadlineLabel}</span>
+              <div className="summary-deadline-head">
+                <span className="summary-deadline-label">{deadlineLabel}</span>
+                {venue.isEstimated ? <span className="summary-deadline-badge">EST.</span> : null}
+              </div>
               <>
                 <strong>{formatDeadline(venue.countdownDeadline!, venue.timezone!)}</strong>
                 <CountdownTimer deadline={venue.countdownDeadline!} timezone={venue.timezone!} compact />

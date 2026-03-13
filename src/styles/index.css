@@ -271,11 +271,15 @@ a {
   }
 
   .summary-deadline {
-    @apply relative w-full max-w-full rounded-[14px] border border-slate-200 bg-slate-50 px-3 py-2.5 sm:w-auto sm:min-w-[240px] sm:max-w-[280px] sm:flex-shrink-0;
+    @apply w-full max-w-full rounded-[14px] border border-slate-200 bg-slate-50 px-3 py-2.5 sm:w-auto sm:min-w-[240px] sm:max-w-[280px] sm:flex-shrink-0;
   }
 
   .summary-deadline span {
     @apply block text-xs font-medium text-slate-500;
+  }
+
+  .summary-deadline-head {
+    @apply flex items-center justify-between gap-3;
   }
 
   .summary-deadline strong {
@@ -415,11 +419,11 @@ a {
   }
 
   .summary-deadline-label {
-    @apply pr-12;
+    @apply flex-1 leading-none;
   }
 
   .summary-deadline-badge {
-    @apply absolute right-3 top-3 rounded-full border border-amber-200 bg-amber-50 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.02em] text-amber-700;
+    @apply inline-flex items-center self-center rounded-full border border-amber-200 bg-amber-50 px-2 py-0.5 text-[11px] font-semibold uppercase leading-none tracking-[0.02em] text-amber-700;
   }
 
   .countdown-inline {
