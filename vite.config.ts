@@ -1,12 +1,11 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vitejs.dev/config/
-const repoName = process.env.GITHUB_REPOSITORY?.split('/')[1]
-
+// Use relative asset paths so the build works for both project pages
+// (/RoboDDL/) and custom-domain root hosting.
 export default defineConfig({
   plugins: [react()],
-  base: repoName ? `/${repoName}/` : '/',
+  base: './',
   build: {
     outDir: 'dist',
   },
