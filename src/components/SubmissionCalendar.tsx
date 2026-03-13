@@ -75,7 +75,7 @@ function SubmissionCalendar({ venues, now }: SubmissionCalendarProps) {
     <section className="calendar-card">
       <button type="button" className="calendar-toggle" onClick={() => setIsOpen((open) => !open)}>
         <div>
-          <h2>Monthly overview</h2>
+          <h2>Monthly Overview</h2>
           <p className="calendar-note">What can you submit each month?</p>
         </div>
         <ChevronDown className={isOpen ? 'calendar-chevron open' : 'calendar-chevron'} />

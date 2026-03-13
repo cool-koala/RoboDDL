@@ -191,7 +191,7 @@ function App() {
           <div className="hero-copy">
             <h1>RoboDDL</h1>
             <div className="hero-note">[WIP] Deadlines and ratings may still contain errors!</div>
-            <p>Deadlines for robotics conferences and journals.</p>
+            <p>Deadlines for robotics conferences and journals</p>
             <a
               href="https://github.com/RoboDDL/RoboDDL"
               target="_blank"
@@ -222,6 +222,14 @@ function App() {
         <SubmissionCalendar venues={filteredVenues} now={currentTime} />
 
         <section className="stats-grid">
+          <button
+            type="button"
+            className={selectedVenueType === 'All' && !showFavoritesOnly ? 'stat-card stat-card-button active' : 'stat-card stat-card-button'}
+            onClick={showAllVenues}
+          >
+            <span>All venues</span>
+            <strong>{stats.conferenceCount + stats.journalCount}</strong>
+          </button>
           <button
             type="button"
             className={selectedVenueType === 'conference' && !showFavoritesOnly ? 'stat-card stat-card-button active' : 'stat-card stat-card-button'}
