@@ -81,7 +81,7 @@ function SubmissionCalendar({ venues, now, favoriteVenueIds }: SubmissionCalenda
       >
         <div>
           <h2 className="calendar-title">
-            <span>Monthly Overview</span>
+            <span>Submission Calendar</span>
           </h2>
           {isOpen ? <p className="calendar-note">What can you submit each month?</p> : null}
         </div>
