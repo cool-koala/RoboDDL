@@ -4,6 +4,7 @@ fullTitle: "IEEE Transactions on Robot Learning"
 summary: "IEEE RAS journal focused on robot learning, embodied intelligence, and learning-driven methods for robotic systems."
 venueType: "journal"
 category: "Journal"
+isNew: true
 organizationTags:
   - "RAS"
 caaiRank: "N/A"

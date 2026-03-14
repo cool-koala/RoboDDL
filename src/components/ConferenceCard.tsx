@@ -35,6 +35,7 @@ function ConferenceCard({ venue, isFavorite, onToggleFavorite }: ConferenceCardP
     hasCasPartition ? `CAS: ${casDisplayValue}` : null,
     hasJcrQuartile ? `JCR: ${jcrDisplayValue}` : null,
   ].filter((item): item is string => Boolean(item));
+  const showJournalMetrics = isJournal && journalMetricItems.length > 0;
 
   return (
     <article className="venue-card">
@@ -45,6 +46,7 @@ function ConferenceCard({ venue, isFavorite, onToggleFavorite }: ConferenceCardP
             <p className="venue-full-title">{venue.fullTitle}</p>
             <div className="badge-row">
               {venue.venueType !== 'conference' ? <span className="pill pill-strong">{venueTypeLabel}</span> : null}
+              {venue.isNew ? <span className="pill pill-new">NEW</span> : null}
               {venue.organizationTags?.map((tag) => (
                 <span key={tag} className="pill">
                   {tag}
@@ -93,12 +95,12 @@ function ConferenceCard({ venue, isFavorite, onToggleFavorite }: ConferenceCardP
       </div>
 
       {isExpanded ? (
-        <div className="venue-expanded">
-          <div className="venue-main">
+        <div className={isJournal ? 'venue-expanded journal-layout' : 'venue-expanded'}>
+          <div className={isJournal ? 'venue-main venue-main-journal' : 'venue-main'}>
             <p className="venue-summary">{venue.summary}</p>
 
-            <div className="venue-meta-grid">
-              {venue.submissionModel === 'deadline' ? (
+            {venue.submissionModel === 'deadline' ? (
+              <div className="venue-meta-grid">
                 <>
                   <div className="meta-block">
                     <div className="meta-head">
@@ -126,32 +128,24 @@ function ConferenceCard({ venue, isFavorite, onToggleFavorite }: ConferenceCardP
                     <div className="meta-value">{venue.location}</div>
                   </div>
                 </>
-              ) : (
-                <>
-                  <div className="meta-block">
-                    <div className="meta-label">
-                      <BookOpen className="h-4 w-4" />
-                      Submission model
-                    </div>
-                    <div className="meta-value">Rolling submission</div>
-                    <div className="meta-sub">{venue.note}</div>
+              </div>
+            ) : null}
+
+            {showJournalMetrics ? (
+              <div className="venue-meta-grid journal-metrics-grid">
+                <div className="meta-block journal-metrics-block">
+                  <div className="meta-label">
+                    <BookOpen className="h-4 w-4" />
+                    Journal metrics
                   </div>
-                  {journalMetricItems.length > 0 ? (
-                    <div className="meta-block">
-                      <div className="meta-label">
-                        <Globe2 className="h-4 w-4" />
-                        Journal metrics
-                      </div>
-                      <div className="journal-metrics">
-                        {journalMetricItems.map((item) => (
-                          <span key={item}>{item}</span>
-                        ))}
-                      </div>
-                    </div>
-                  ) : null}
-                </>
-              )}
-            </div>
+                  <div className="journal-metrics">
+                    {journalMetricItems.map((item) => (
+                      <span key={item}>{item}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : null}
 
             <div className="source-strip">
               <span className="source-label">Source</span>
@@ -171,37 +165,41 @@ function ConferenceCard({ venue, isFavorite, onToggleFavorite }: ConferenceCardP
               ) : null}
               {!venue.isEstimated && venue.note ? <span className="source-note">{venue.note}</span> : null}
             </div>
+
+            {isJournal ? (
+              <div className="action-row">
+                <a href={venue.homepage} target="_blank" rel="noreferrer" className="action-button primary">
+                  <Globe2 className="h-4 w-4" />
+                  Journal Page
+                </a>
+                {venue.specialIssueUrl ? (
+                  <a href={venue.specialIssueUrl} target="_blank" rel="noreferrer" className="action-button">
+                    <ExternalLink className="h-4 w-4" />
+                    {venue.specialIssueLabel ?? 'Special Issue'}
+                  </a>
+                ) : null}
+                {venue.dblp ? (
+                  <a
+                    href={`https://dblp.org/db/${venue.dblp}.html`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="action-button"
+                  >
+                    <BookOpen className="h-4 w-4" />
+                    DBLP
+                  </a>
+                ) : null}
+              </div>
+            ) : null}
           </div>
 
-          <aside className="venue-side">
-            {venue.submissionModel === 'deadline' ? (
+          {!isJournal ? (
+            <aside className="venue-side">
               <>
                 <div className="side-title">Countdown to {venue.countdownLabel}</div>
                 <CountdownTimer deadline={venue.countdownDeadline!} timezone={venue.timezone!} />
               </>
-            ) : (
-              <div className="rolling-panel">
-                <div className="side-title">Status</div>
-                <strong>Rolling</strong>
-                <span>This journal has no single annual deadline and accepts submissions continuously.</span>
-              </div>
-            )}
-
-            <div className="action-row">
-              {isJournal ? (
-                <>
-                  <a href={venue.homepage} target="_blank" rel="noreferrer" className="action-button primary">
-                    <Globe2 className="h-4 w-4" />
-                    Journal Page
-                  </a>
-                  {venue.specialIssueUrl ? (
-                    <a href={venue.specialIssueUrl} target="_blank" rel="noreferrer" className="action-button">
-                      <ExternalLink className="h-4 w-4" />
-                      {venue.specialIssueLabel ?? 'Special Issue'}
-                    </a>
-                  ) : null}
-                </>
-              ) : (
+              <div className="action-row">
                 <>
                   <a href={venue.link} target="_blank" rel="noreferrer" className="action-button primary">
                     <ExternalLink className="h-4 w-4" />
@@ -212,20 +210,20 @@ function ConferenceCard({ venue, isFavorite, onToggleFavorite }: ConferenceCardP
                     Series Page
                   </a>
                 </>
-              )}
-              {venue.dblp ? (
-                <a
-                  href={`https://dblp.org/db/${venue.dblp}.html`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="action-button"
-                >
-                  <BookOpen className="h-4 w-4" />
-                  DBLP
-                </a>
-              ) : null}
-            </div>
-          </aside>
+                {venue.dblp ? (
+                  <a
+                    href={`https://dblp.org/db/${venue.dblp}.html`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="action-button"
+                  >
+                    <BookOpen className="h-4 w-4" />
+                    DBLP
+                  </a>
+                ) : null}
+              </div>
+            </aside>
+          ) : null}
         </div>
       ) : null}
     </article>
