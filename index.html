@@ -1,8 +1,9 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="canonical" href="https://roboddl.com/" />
+    <link rel="alternate" hreflang="en" href="https://roboddl.com/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -10,6 +11,8 @@
       rel="stylesheet"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="content-language" content="en, zh-CN" />
+    <meta name="language" content="English, Chinese" />
     <meta name="theme-color" content="#f8fafc" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta
@@ -17,67 +20,108 @@
       content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
     />
     <meta
+      name="bingbot"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+    <meta
+      name="Baiduspider"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+    <meta
       name="keywords"
-      content="RoboDDL, robotics deadlines, robotics conference deadlines, robotics journal tracker, robotics conferences, robotics journals, robot conference deadline, robot journal, AI robotics conference, robot learning conference, robotics CFP, conference tracker, deadline tracker, paper deadline tracker, robotics paper deadlines, 机器人会议, 机器人期刊, 机器人会议DDL, 机器人截稿日期, 机器人投稿, 机器人论文投稿, 机器人会议追踪, 机器人期刊追踪, ICRA, IROS, RSS, CoRL, HRI, Humanoids, BioRob, RO-MAN, CASE, RoboSoft, AIM, ICAR, RCAR, CVPR, ICCV, ECCV, ICLR, ICML, NeurIPS, AAAI, IJCAI, AAMAS, RA-L, RAL, T-RO, TRO, T-ASE, TASE, RAP, IJRR, T-FR, Science Robotics, Nature Communications, Nature Machine Intelligence, TPAMI"
+      content="RoboDDL, robotics deadlines, robotics conference deadlines, robotics journal tracker, robotics paper deadlines, conference deadline tracker, journal deadline tracker, conference CFP tracker, robotics conferences, robotics journals, robot learning, embodied AI, AI robotics, AoE deadline, conference ranking, journal ranking, ICRA, IROS, RSS, CoRL, HRI, Humanoids, BioRob, RO-MAN, CASE, RoboSoft, AIM, ICAR, RCAR, CVPR, ICCV, ECCV, ICLR, ICML, NeurIPS, AAAI, IJCAI, AAMAS, RA-L, RAL, T-RO, TRO, T-ASE, TASE, RAP, IJRR, T-FR, Science Robotics, Nature Communications, Nature Machine Intelligence, TPAMI, 机器人会议, 机器人期刊, 机器人会议DDL, 机器人期刊DDL, 机器人截稿日期, 机器人投稿, 机器人论文投稿, 机器人会议追踪, 机器人期刊追踪, 机器人会议评级, 机器人期刊分区, 机器人会议排名, 机器人期刊排名, 机器人会议截止日期, 机器人期刊截止日期, 机器人会议和期刊"
     />
     <meta
       name="description"
-      content="RoboDDL 是你的一站式机器人相关会议和期刊追踪器，帮助你查看 robotics conferences 与 journals 的 deadline、AoE 截稿时间、评级、地点与投稿入口，覆盖 ICRA、IROS、RSS、CoRL、HRI、Humanoids、CVPR、ICCV、ECCV、ICLR、ICML、NeurIPS、AAAI、IJCAI、AAMAS，以及 RA-L、T-RO、T-ASE、RAP、IJRR、Science Robotics 等重要期刊。"
+      content="RoboDDL is an English-first tracker for robotics conferences and journals, covering deadlines, AoE cutoffs, ratings, locations, and submission links for venues such as ICRA, IROS, RSS, CoRL, CVPR, ICLR, ICML, NeurIPS, RA-L, T-RO, T-ASE, IJRR, and Science Robotics."
     />
     <meta name="author" content="RoboDDL" />
-    <meta property="og:locale" content="zh_CN" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="zh_CN" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="RoboDDL" />
     <meta property="og:title" content="RoboDDL | A tracker for robotics conferences and journals" />
     <meta
       property="og:description"
-      content="追踪机器人会议与期刊的截稿日期、AoE 时间、评级、地点和投稿入口，覆盖 ICRA、IROS、RSS、CoRL、CVPR、ICLR、ICML、NeurIPS、RA-L、T-RO、T-ASE、RAP、IJRR 等。"
+      content="Track robotics conferences and journals with deadlines, AoE cutoffs, ratings, locations, and submission links in one place."
     />
     <meta property="og:url" content="https://roboddl.com/" />
     <meta property="twitter:card" content="summary" />
     <meta property="twitter:title" content="RoboDDL | A tracker for robotics conferences and journals" />
     <meta
       property="twitter:description"
-      content="机器人会议与期刊 deadline 追踪站，支持 AoE 时间、评级、过滤和快速跳转。"
+      content="Track robotics conferences and journals with deadlines, AoE cutoffs, ratings, filters, and submission links."
     />
     <title>RoboDDL | A tracker for robotics conferences and journals</title>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "RoboDDL",
-        "url": "https://roboddl.com/",
-        "inLanguage": "zh-CN",
-        "description": "RoboDDL 是一个机器人相关会议和期刊追踪器，提供会议与期刊的 deadline、AoE 时间、评级、地点、来源链接与投稿入口。",
-        "keywords": [
-          "robotics deadlines",
-          "robotics conference deadlines",
-          "robotics journal tracker",
-          "robotics conferences",
-          "robotics journals",
-          "robot learning",
-          "AI robotics",
-          "机器人会议",
-          "机器人期刊",
-          "机器人会议DDL",
-          "ICRA",
-          "IROS",
-          "RSS",
-          "CoRL",
-          "CVPR",
-          "ICLR",
-          "ICML",
-          "NeurIPS",
-          "RA-L",
-          "T-RO",
-          "T-ASE",
-          "RAP",
-          "IJRR"
-        ],
-        "publisher": {
-          "@type": "Organization",
-          "name": "RoboDDL"
-        }
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "name": "RoboDDL",
+            "alternateName": [
+              "机器人会议与期刊追踪",
+              "机器人会议与期刊截稿追踪"
+            ],
+            "url": "https://roboddl.com/",
+            "inLanguage": [
+              "en",
+              "zh-CN"
+            ],
+            "description": "RoboDDL is an English-first tracker for robotics conferences and journals, with deadlines, AoE cutoffs, ratings, locations, and submission links.",
+            "keywords": [
+              "robotics deadlines",
+              "robotics conference deadlines",
+              "robotics journal tracker",
+              "conference deadline tracker",
+              "journal deadline tracker",
+              "robot learning",
+              "embodied AI",
+              "AI robotics",
+              "AoE deadline",
+              "机器人会议",
+              "机器人期刊",
+              "机器人会议DDL",
+              "机器人期刊DDL",
+              "机器人截稿日期",
+              "机器人投稿",
+              "机器人论文投稿",
+              "机器人会议追踪",
+              "机器人期刊追踪",
+              "机器人会议评级",
+              "机器人期刊分区",
+              "ICRA",
+              "IROS",
+              "RSS",
+              "CoRL",
+              "CVPR",
+              "ICLR",
+              "ICML",
+              "NeurIPS",
+              "RA-L",
+              "T-RO",
+              "T-ASE",
+              "IJRR"
+            ],
+            "publisher": {
+              "@type": "Organization",
+              "name": "RoboDDL",
+              "alternateName": "RoboDDL 机器人会议与期刊追踪",
+              "url": "https://roboddl.com/"
+            }
+          },
+          {
+            "@type": "Organization",
+            "name": "RoboDDL",
+            "alternateName": [
+              "RoboDDL 机器人会议与期刊追踪",
+              "机器人会议与期刊截稿追踪"
+            ],
+            "url": "https://roboddl.com/"
+          }
+        ]
       }
     </script>
   </head>
