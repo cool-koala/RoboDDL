@@ -19,12 +19,21 @@ function ConferenceCard({ venue, isFavorite, onToggleFavorite }: ConferenceCardP
   const hasCaaRank = Boolean(venue.caaRank && venue.caaRank !== 'N/A');
   const hasCcfRank = Boolean(venue.ccfRank && venue.ccfRank !== 'N/A');
   const hasCaaiRank = Boolean(venue.caaiRank && venue.caaiRank !== 'N/A');
+  const hasCasPartition = Boolean(venue.casPartition && venue.casPartition !== 'N/A');
+  const hasJcrQuartile = Boolean(venue.jcrQuartile && venue.jcrQuartile !== 'N/A');
+  const casDisplayValue = hasCasPartition
+    ? venue.casPartition!
+        .replace(/^CAS\s*/i, '')
+        .replace(/^Q?\s*([1-4])$/i, 'Q$1')
+        .trim()
+    : '';
+  const jcrDisplayValue = hasJcrQuartile ? venue.jcrQuartile!.replace(/^JCR\s*/i, '').trim() : '';
   const journalMetricItems = [
     hasCcfRank ? `CCF: ${venue.ccfRank}` : null,
     hasCaaiRank ? `CAAI: ${venue.caaiRank}` : null,
     hasCaaRank ? `CAA: ${venue.caaRank}` : null,
-    venue.casPartition && venue.casPartition !== 'N/A' ? `CAS: ${venue.casPartition}` : null,
-    venue.jcrQuartile && venue.jcrQuartile !== 'N/A' ? `JCR: ${venue.jcrQuartile}` : null,
+    hasCasPartition ? `CAS: ${casDisplayValue}` : null,
+    hasJcrQuartile ? `JCR: ${jcrDisplayValue}` : null,
   ].filter((item): item is string => Boolean(item));
 
   return (
@@ -45,6 +54,8 @@ function ConferenceCard({ venue, isFavorite, onToggleFavorite }: ConferenceCardP
               {hasCcfRank ? <span className="pill">CCF {venue.ccfRank}</span> : null}
               {hasCaaiRank ? <span className="pill">CAAI {venue.caaiRank}</span> : null}
               {hasCaaRank ? <span className="pill">CAA {venue.caaRank}</span> : null}
+              {hasCasPartition ? <span className="pill">CAS {casDisplayValue}</span> : null}
+              {hasJcrQuartile ? <span className="pill">JCR {jcrDisplayValue}</span> : null}
             </div>
           </div>
           {!isExpanded && venue.submissionModel === 'deadline' ? (

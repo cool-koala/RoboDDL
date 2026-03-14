@@ -121,12 +121,7 @@ function App() {
         selectedRatingFilter === 'All' ||
         (selectedRatingFilter === 'CCF' && Boolean(venue.ccfRank && venue.ccfRank !== 'N/A')) ||
         (selectedRatingFilter === 'CAAI' && Boolean(venue.caaiRank && venue.caaiRank !== 'N/A')) ||
-        (selectedRatingFilter === 'SCI' &&
-          Boolean(
-            (venue.casPartition && venue.casPartition !== 'N/A') ||
-              (venue.jcrQuartile && venue.jcrQuartile !== 'N/A'),
-          )) ||
-        (selectedRatingFilter === 'JCR' && Boolean(venue.jcrQuartile && venue.jcrQuartile !== 'N/A'));
+        (selectedRatingFilter === 'CAA' && Boolean(venue.caaRank && venue.caaRank !== 'N/A'));
       const matchesFavorite = !showFavoritesOnly || favoriteVenueIds.includes(venue.id);
 
       return matchesSearch && matchesType && matchesCategory && matchesRating && matchesFavorite;

@@ -8,7 +8,7 @@ import {
 export type VenueType = 'conference' | 'journal';
 export type Category = 'RAS' | 'Robot Learning' | 'AI x Robotics' | 'Journal';
 export type SubmissionModel = 'deadline' | 'rolling';
-export type RatingFilter = 'All' | 'CCF' | 'CAAI' | 'SCI' | 'JCR';
+export type RatingFilter = 'All' | 'CCF' | 'CAAI' | 'CAA';
 
 interface VenueRecordBase {
   slug: string;
@@ -113,7 +113,7 @@ export const categories: Array<'All' | Exclude<Category, 'Journal'>> = [
 ];
 
 export const venueTypes: Array<'All' | VenueType> = ['All', 'conference', 'journal'];
-export const ratingFilters: RatingFilter[] = ['All', 'CCF', 'CAAI', 'SCI', 'JCR'];
+export const ratingFilters: RatingFilter[] = ['All', 'CCF', 'CAAI', 'CAA'];
 
 function resolveDeadlineVenue(record: DeadlineVenueRecord, now: Date): VenueView {
   const editions = [...record.knownEditions].sort((left, right) => left.year - right.year);
