@@ -5,8 +5,8 @@ interface FilterPanelProps {
   onVenueTypeChange: (value: 'All' | VenueType) => void;
   selectedCategory: 'All' | Category;
   onCategoryChange: (value: 'All' | Category) => void;
-  sortBy: 'deadline' | 'title' | 'rank';
-  onSortChange: (value: 'deadline' | 'title' | 'rank') => void;
+  sortBy: 'deadline' | 'title';
+  onSortChange: (value: 'deadline' | 'title') => void;
   selectedRatingFilter: RatingFilter;
   onRatingFilterChange: (value: RatingFilter) => void;
   showFavoritesOnly: boolean;
@@ -65,13 +65,12 @@ function FilterPanel({
           {[
             ['deadline', 'Nearest deadline'],
             ['title', 'Alphabetical'],
-            ['rank', 'Rank'],
           ].map(([value, label]) => (
             <button
               key={value}
               type="button"
               className={sortBy === value ? 'filter-chip active' : 'filter-chip'}
-              onClick={() => onSortChange(value as 'deadline' | 'title' | 'rank')}
+              onClick={() => onSortChange(value as 'deadline' | 'title')}
             >
               {label}
             </button>

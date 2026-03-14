@@ -14,6 +14,7 @@ function ConferenceCard({ venue, isFavorite, onToggleFavorite }: ConferenceCardP
   const title = venue.year ? `${venue.title} ${venue.year}` : venue.title;
   const [isExpanded, setIsExpanded] = useState(false);
   const isJournal = venue.submissionModel === 'rolling';
+  const venueTypeLabel = venue.venueType[0].toUpperCase() + venue.venueType.slice(1);
   const deadlineLabel = venue.submissionModel === 'deadline' ? venue.countdownLabel : 'Status';
   const hasCcfRank = Boolean(venue.ccfRank && venue.ccfRank !== 'N/A');
   const hasCaaiRank = Boolean(venue.caaiRank && venue.caaiRank !== 'N/A');
@@ -32,8 +33,13 @@ function ConferenceCard({ venue, isFavorite, onToggleFavorite }: ConferenceCardP
             <h2>{title}</h2>
             <p className="venue-full-title">{venue.fullTitle}</p>
             <div className="badge-row">
-              {venue.venueType !== 'conference' ? <span className="pill pill-strong">{venue.venueType}</span> : null}
-              <span className="pill">{venue.category}</span>
+              {venue.venueType !== 'conference' ? <span className="pill pill-strong">{venueTypeLabel}</span> : null}
+              {venue.organizationTags?.map((tag) => (
+                <span key={tag} className="pill">
+                  {tag}
+                </span>
+              ))}
+              {venue.venueType === 'conference' ? <span className="pill">{venue.category}</span> : null}
               {hasCcfRank ? <span className="pill">CCF {venue.ccfRank}</span> : null}
               {hasCaaiRank ? <span className="pill">CAAI {venue.caaiRank}</span> : null}
             </div>

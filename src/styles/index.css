@@ -67,10 +67,6 @@ a {
     @apply flex flex-wrap items-center gap-2;
   }
 
-  .hero-link {
-    @apply inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition hover:border-slate-300 hover:text-slate-900;
-  }
-
   .hero-star-badge {
     @apply inline-flex items-stretch rounded-md shadow-sm;
   }
@@ -98,8 +94,36 @@ a {
     @apply flex flex-col items-center justify-center rounded-[16px] border border-slate-200 bg-slate-50 p-4 text-center text-slate-900;
   }
 
+  .live-label-row {
+    @apply flex items-center gap-1.5;
+  }
+
   .live-label {
     @apply text-sm font-medium text-slate-500 sm:text-base;
+  }
+
+  .live-help {
+    @apply relative inline-flex;
+  }
+
+  .live-help-trigger {
+    @apply inline-flex h-5 w-5 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-500 transition hover:border-slate-400 hover:text-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2;
+  }
+
+  .live-help-popover {
+    @apply pointer-events-none absolute left-1/2 top-full z-10 mt-2 w-64 max-w-[calc(100vw-2rem)] -translate-x-1/2 rounded-xl border border-slate-200 bg-white p-3 text-left text-xs leading-5 text-slate-600 opacity-0 shadow-lg transition;
+  }
+
+  .live-help-popover.open {
+    @apply pointer-events-auto opacity-100;
+  }
+
+  .live-help-popover p {
+    @apply m-0;
+  }
+
+  .live-help-popover a {
+    @apply mt-2 inline-flex font-medium text-slate-900 underline decoration-slate-300 underline-offset-2 transition hover:text-slate-700;
   }
 
   .live-time {

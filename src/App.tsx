@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from 'react';
-import { ArrowUp, Github, Star } from 'lucide-react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { ArrowUp, HelpCircle, Star } from 'lucide-react';
 import ConferenceCard from './components/ConferenceCard';
 import FilterPanel from './components/FilterPanel';
 import SearchBar from './components/SearchBar';
@@ -11,11 +11,13 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedVenueType, setSelectedVenueType] = useState<'All' | VenueType>('All');
   const [selectedCategory, setSelectedCategory] = useState<'All' | Category>('All');
-  const [sortBy, setSortBy] = useState<'deadline' | 'title' | 'rank'>('deadline');
+  const [sortBy, setSortBy] = useState<'deadline' | 'title'>('deadline');
   const [selectedRatingFilter, setSelectedRatingFilter] = useState<RatingFilter>('All');
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [isAoEHelpOpen, setIsAoEHelpOpen] = useState(false);
+  const aoeHelpHideTimeoutRef = useRef<number | null>(null);
   const [favoriteVenueIds, setFavoriteVenueIds] = useState<string[]>(() => {
     if (typeof window === 'undefined') {
       return [];
@@ -82,6 +84,14 @@ function App() {
     window.localStorage.setItem('roboddl:favorites', JSON.stringify(favoriteVenueIds));
   }, [favoriteVenueIds]);
 
+  useEffect(() => {
+    return () => {
+      if (aoeHelpHideTimeoutRef.current !== null) {
+        window.clearTimeout(aoeHelpHideTimeoutRef.current);
+      }
+    };
+  }, []);
+
   const venues = useMemo(() => buildVenueViews(currentTime), [currentTime]);
 
   const filteredVenues = useMemo(() => {
@@ -104,9 +114,9 @@ function App() {
       const matchesSearch = query.length === 0 || searchText.includes(query);
       const matchesType = selectedVenueType === 'All' || venue.venueType === selectedVenueType;
       const matchesCategory =
-        selectedVenueType === 'journal'
-          ? true
-          : selectedCategory === 'All' || venue.category === selectedCategory;
+        selectedCategory === 'All' ||
+        venue.category === selectedCategory ||
+        Boolean(venue.organizationTags?.includes(selectedCategory));
       const matchesRating =
         selectedRatingFilter === 'All' ||
         (selectedRatingFilter === 'CCF' && Boolean(venue.ccfRank && venue.ccfRank !== 'N/A')) ||
@@ -122,13 +132,6 @@ function App() {
       return matchesSearch && matchesType && matchesCategory && matchesRating && matchesFavorite;
     });
 
-    const rankOrder: Record<string, number> = {
-      'A*': 0,
-      'RAS A': 1,
-      A: 2,
-      'Top Journal': 3,
-    };
-
     filtered.sort((left, right) => {
       const leftFavorite = favoriteVenueIds.includes(left.id);
       const rightFavorite = favoriteVenueIds.includes(right.id);
@@ -139,10 +142,6 @@ function App() {
 
       if (sortBy === 'title') {
         return left.title.localeCompare(right.title);
-      }
-
-      if (sortBy === 'rank') {
-        return (rankOrder[left.rank] ?? 999) - (rankOrder[right.rank] ?? 999);
       }
 
       return left.deadlineSortMs - right.deadlineSortMs;
@@ -185,6 +184,26 @@ function App() {
         ? current.filter((id) => id !== venueId)
         : [...current, venueId];
     });
+  };
+
+  const clearAoEHelpHideTimeout = () => {
+    if (aoeHelpHideTimeoutRef.current !== null) {
+      window.clearTimeout(aoeHelpHideTimeoutRef.current);
+      aoeHelpHideTimeoutRef.current = null;
+    }
+  };
+
+  const openAoEHelp = () => {
+    clearAoEHelpHideTimeout();
+    setIsAoEHelpOpen(true);
+  };
+
+  const scheduleAoEHelpClose = () => {
+    clearAoEHelpHideTimeout();
+    aoeHelpHideTimeoutRef.current = window.setTimeout(() => {
+      setIsAoEHelpOpen(false);
+      aoeHelpHideTimeoutRef.current = null;
+    }, 1000);
   };
 
   const showAllVenues = () => {
@@ -230,17 +249,8 @@ function App() {
           <div className="hero-copy">
             <h1>RoboDDL</h1>
             <div className="hero-note">[WIP] Deadlines and ratings may still contain errors!</div>
-            <p>Deadlines for robotics conferences and journals</p>
+            <p>Your one-stop tracker for robotics conferences and journals</p>
             <div className="hero-actions">
-              <a
-                href="https://github.com/RoboDDL/RoboDDL"
-                target="_blank"
-                rel="noreferrer"
-                className="hero-link"
-                aria-label="RoboDDL on GitHub"
-              >
-                <Github className="h-4 w-4" />
-              </a>
               {githubStarsLabel ? (
                 <div className="hero-star-badge" aria-label={`RoboDDL GitHub stars: ${githubStars}`}>
                   <a
@@ -268,7 +278,38 @@ function App() {
           </div>
 
           <div className="hero-panel">
-            <div className="live-label">Current AoE Time</div>
+            <div className="live-label-row">
+              <div className="live-label">Current AoE Time</div>
+              <div
+                className="live-help"
+                onMouseEnter={openAoEHelp}
+                onMouseLeave={scheduleAoEHelpClose}
+                onFocusCapture={openAoEHelp}
+                onBlurCapture={(event) => {
+                  const nextFocusTarget = event.relatedTarget as Node | null;
+
+                  if (nextFocusTarget && event.currentTarget.contains(nextFocusTarget)) {
+                    return;
+                  }
+
+                  scheduleAoEHelpClose();
+                }}
+              >
+                <button type="button" className="live-help-trigger" aria-label="What is AoE time?">
+                  <HelpCircle className="h-3.5 w-3.5" />
+                </button>
+                <div className={isAoEHelpOpen ? 'live-help-popover open' : 'live-help-popover'} role="tooltip">
+                  <p>AoE means "Anywhere on Earth" and follows UTC-12 for deadline cutoffs.</p>
+                  <a
+                    href="https://en.wikipedia.org/wiki/Anywhere_on_Earth"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Learn more on Wikipedia
+                  </a>
+                </div>
+              </div>
+            </div>
             <div className="live-time">
               {currentTime.toLocaleTimeString('en-US', {
                 hour12: false,
