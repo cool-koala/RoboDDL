@@ -5,8 +5,7 @@ summary: "Major venue for human-robot interaction, social robotics, assistive ro
 venueType: "conference"
 category: "RAS"
 ccfRank: "N/A"
-homepage: "https://ro-man2026.org/"
-dblp: "conf/roman"
+dblp: "conf/ro-man"
 keywords:
   - "ro-man"
   - "human-robot interaction"
@@ -19,6 +18,6 @@ knownEditions:
     timezone: "PST"
     conferenceDates: "August 24-28, 2026"
     location: "Kitakyushu, Japan"
-    link: "https://ro-man2026.org/papersubmission/"
-    deadlineSourceLabel: "RO-MAN 2026 paper submission page"
+    link: "https://ro-man2026.org/"
+    deadlineSourceLabel: "RO-MAN 2026 Paper Submission"
     deadlineSourceUrl: "https://ro-man2026.org/papersubmission/"
