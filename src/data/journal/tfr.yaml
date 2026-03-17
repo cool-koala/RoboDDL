@@ -4,6 +4,7 @@ fullTitle: "IEEE Transactions on Field Robotics"
 summary: "Field robotics journal focused on robots deployed in outdoor, agricultural, ocean, aerial, and other real-world settings."
 venueType: "journal"
 category: "Journal"
+isNew: true
 organizationTags:
   - "RAS"
 ccfRank: "N/A"
