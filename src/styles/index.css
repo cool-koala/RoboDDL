@@ -64,11 +64,11 @@ a {
   }
 
   .hero-tools-pill {
-    @apply inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white/90 p-1 shadow-sm backdrop-blur;
+    @apply inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white/90 p-1.5 shadow-sm backdrop-blur;
   }
 
   .hero-tool-button {
-    @apply inline-flex items-center justify-center rounded-full border border-transparent bg-transparent text-sm font-semibold text-slate-600 transition hover:bg-slate-100 hover:text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2;
+    @apply inline-flex items-center justify-center rounded-full border border-transparent bg-transparent text-sm font-semibold text-slate-700 transition hover:bg-slate-100 hover:text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2;
   }
 
   .hero-tool-button-language {
@@ -76,7 +76,7 @@ a {
   }
 
   .hero-tool-button-icon {
-    @apply h-9 w-9;
+    @apply h-9 w-9 p-2;
   }
 
   .hero-tool-button.active {
@@ -853,7 +853,7 @@ a {
 }
 
 :root[data-theme='dark'] .hero-tool-button {
-  color: #cbd5e1;
+  color: #e2e8f0;
 }
 
 :root[data-theme='dark'] .hero-tools-divider {
